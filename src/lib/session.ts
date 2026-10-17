@@ -18,6 +18,7 @@ export async function getCurrentSession() {
 	return {
 		session: result?.session ?? null,
 		user: result?.user ?? null,
+		role: result?.user ? getUserRole(result.user.id) : null,
 	};
 }
 

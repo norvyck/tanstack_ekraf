@@ -1,8 +1,11 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
+import { Loader2, Sprout } from "lucide-react";
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { seedAdmin } from "@/lib/server/auth";
+import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/setup")({ component: Setup });
 
@@ -20,7 +23,7 @@ function Setup() {
 			setMessage(
 				result.alreadySeeded
 					? "Admin account already exists."
-					: "Admin account seeded. Sign in at /demo/better-auth with admin@example.com / admin12345",
+					: "Admin account seeded. Sign in at /login with admin@example.com / admin12345",
 			);
 		} catch (err) {
 			setStatus("error");
@@ -29,56 +32,53 @@ function Setup() {
 	};
 
 	return (
-		<main className="page-wrap px-4 py-12">
-			<section className="island-shell rounded-2xl p-6 sm:p-8">
-				<p className="island-kicker mb-2">Setup</p>
-				<h1 className="display-title mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">
-					Seed Admin Account
-				</h1>
-				<p className="m-0 max-w-2xl text-base leading-8 text-[var(--sea-ink-soft)]">
-					This creates the administrator account (password is hashed by Better Auth) and seeds
-					sample products. Run this once after deploying.
-				</p>
+		<main className="flex min-h-[calc(100dvh-4rem)] items-center justify-center px-4 py-12">
+			<Card className="w-full max-w-lg shadow-lg">
+				<CardHeader className="gap-3">
+					<span className="grid size-12 place-items-center rounded-xl bg-primary text-primary-foreground">
+						<Sprout className="size-6" />
+					</span>
+					<div className="space-y-1">
+						<CardTitle className="text-2xl">Seed Admin Account</CardTitle>
+						<CardDescription>
+							Creates the administrator account (password hashed by Better Auth) and seeds sample
+							products. Run this once after deploying.
+						</CardDescription>
+					</div>
+				</CardHeader>
 
-				<div className="mt-8">
-					<button
-						type="button"
-						onClick={handleSeed}
-						disabled={status === "loading"}
-						className="rounded-xl border border-[var(--line)] bg-[var(--chip-bg)] px-5 py-3 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:bg-[var(--link-bg-hover)] disabled:opacity-50"
-					>
+				<CardContent className="space-y-5">
+					<p className="text-sm text-muted-foreground">
+						This sets up <span className="font-medium text-foreground">admin@example.com</span> /
+						<span className="font-medium text-foreground">admin12345</span> and three sample
+						products. Safe to re-run; seeding is idempotent.
+					</p>
+
+					<Button onClick={handleSeed} disabled={status === "loading"} className="w-full">
+						{status === "loading" && <Loader2 className="size-4 animate-spin" />}
 						{status === "loading" ? "Seeding..." : "Seed Admin Account"}
-					</button>
+					</Button>
 
 					{status !== "idle" && (
-						<div className="mt-4 p-4 rounded-xl bg-[var(--chip-bg)] border border-[var(--line)]">
-							<p
-								className={`m-0 text-sm ${
-									status === "success"
-										? "text-green-700 dark:text-green-400"
-										: status === "error"
-											? "text-red-700 dark:text-red-400"
-											: "text-[var(--sea-ink-soft)]"
-								}`}
-							>
-								{message}
-							</p>
+						<div
+							className={
+								status === "success"
+									? "rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2.5 text-sm text-emerald-700 dark:text-emerald-400"
+									: "rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2.5 text-sm text-destructive"
+							}
+						>
+							{message}
 						</div>
 					)}
 
-					<div className="mt-6">
-						<p className="m-0 text-sm text-[var(--sea-ink-soft)]">
-							Already have an account?{" "}
-							<Link
-								to="/demo/better-auth"
-								className="underline underline-offset-4 font-medium hover:text-[var(--sea-ink)]"
-							>
-								Sign in
-							</Link>
-						</p>
-					</div>
-				</div>
-			</section>
+					<p className="border-t border-border pt-4 text-center text-sm text-muted-foreground">
+						Already have an account?{" "}
+						<Link to="/login" className="font-medium text-primary hover:underline">
+							Sign in
+						</Link>
+					</p>
+				</CardContent>
+			</Card>
 		</main>
 	);
 }

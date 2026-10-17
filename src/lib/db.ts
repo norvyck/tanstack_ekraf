@@ -8,6 +8,12 @@ export interface Product {
 	description: string;
 	price: number;
 	stock: number;
+	/**
+	 * Product image as a data URL (`data:image/...;base64,...`), or null when
+	 * the product has no image. Always downscaled to a maximum of 512px and
+	 * re-validated on the server (see `src/lib/image.ts`).
+	 */
+	image: string | null;
 	createdAt: string;
 	updatedAt: string;
 }

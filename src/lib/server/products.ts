@@ -2,13 +2,30 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 import { type Product, db } from "@/lib/db";
+import { validateProductImage } from "@/lib/image";
 import { requireAdmin, requireAuth } from "@/lib/session";
 
+const imageSchema = z
+	.string()
+	.nullish()
+	.superRefine((value, ctx) => {
+		const result = validateProductImage(value ?? null);
+		if (!result.ok) {
+			ctx.addIssue({ code: "custom", message: result.error });
+		}
+	})
+	.transform((value) => (value == null || value.trim() === "" ? null : value.trim()));
+
 export const productSchema = z.object({
-	name: z.string().min(1, "Name is required"),
-	description: z.string().min(1, "Description is required"),
-	price: z.coerce.number().min(0, "Price must be positive"),
-	stock: z.coerce.number().min(0, "Stock must be positive"),
+	name: z.string().trim().min(1, "Name is required").max(120, "Name is too long"),
+	description: z
+		.string()
+		.trim()
+		.min(1, "Description is required")
+		.max(2000, "Description is too long"),
+	price: z.coerce.number().min(0, "Price must be positive").max(1_000_000, "Price is too high"),
+	stock: z.coerce.number().int("Stock must be a whole number").min(0, "Stock must be positive"),
+	image: imageSchema,
 });
 
 export type ProductInput = z.infer<typeof productSchema>;
@@ -57,6 +74,7 @@ export const updateProduct = createServerFn({ method: "POST" })
 			description: data.description,
 			price: data.price,
 			stock: data.stock,
+			image: data.image,
 			updatedAt: now,
 		} as Product;
 		db.product[index] = updated;

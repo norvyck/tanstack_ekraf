@@ -70,6 +70,7 @@ export const seedAdmin = createServerFn({ method: "POST" }).handler(async () => 
 	].map((p) => ({
 		id: crypto.randomUUID(),
 		...p,
+		image: null,
 		createdAt: now,
 		updatedAt: now,
 	}));
