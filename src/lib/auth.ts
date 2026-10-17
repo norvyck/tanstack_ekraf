@@ -3,8 +3,22 @@ import { tanstackStartCookies } from "better-auth/tanstack-start";
 
 import { adapter } from "./db";
 
+const trustedOrigins = new Set(["http://localhost:3000", "http://127.0.0.1:3000"]);
+const authUrl = process.env.BETTER_AUTH_URL;
+const vercelUrl = process.env.VERCEL_URL;
+
+if (authUrl) {
+	trustedOrigins.add(new URL(authUrl).origin);
+}
+
+if (vercelUrl) {
+	trustedOrigins.add(`https://${vercelUrl}`);
+}
+
+trustedOrigins.add("https://ifs24012-tanstack-ekraf.vercel.app");
+
 export const auth = betterAuth({
-	trustedOrigins: ["http://localhost:3000", "http://127.0.0.1:3000"],
+	trustedOrigins: [...trustedOrigins],
 	database: adapter,
 	emailAndPassword: {
 		enabled: true,
