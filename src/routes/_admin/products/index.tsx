@@ -18,11 +18,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import type { Product } from "@/lib/db";
-import { deleteProduct, getProducts } from "@/lib/server/products";
+import { productsQueryOptions } from "@/lib/products-query";
+import { deleteProduct } from "@/lib/server/products";
 
 const SKELETON_ROWS = ["skeleton-1", "skeleton-2", "skeleton-3", "skeleton-4"];
 
-export const Route = createFileRoute("/_admin/products/")({ component: Products });
+export const Route = createFileRoute("/_admin/products/")({
+	loader: ({ context }) => context.queryClient.ensureQueryData(productsQueryOptions()),
+	pendingMs: 120,
+	pendingMinMs: 180,
+	pendingComponent: ProductsRoutePending,
+	component: Products,
+});
 
 function Products() {
 	const { role } = Route.useRouteContext();
@@ -35,10 +42,7 @@ function Products() {
 	const [pendingDelete, setPendingDelete] = useState<Product | null>(null);
 	const [deleting, setDeleting] = useState(false);
 
-	const productsQuery = useQuery({
-		queryKey: ["products"],
-		queryFn: () => getProducts(),
-	});
+	const productsQuery = useQuery(productsQueryOptions());
 
 	const products = productsQuery.data ?? [];
 
@@ -279,6 +283,18 @@ function Products() {
 				loading={deleting}
 				onConfirm={handleDelete}
 			/>
+		</div>
+	);
+}
+
+function ProductsRoutePending() {
+	return (
+		<div className="mx-auto w-full max-w-6xl space-y-6" aria-label="Loading products">
+			<div className="h-32 animate-pulse rounded-2xl border border-[var(--line)] bg-[var(--surface)]" />
+			<div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 shadow-sm">
+				<div className="mb-5 h-10 animate-pulse rounded-lg bg-muted" />
+				<LoadingState />
+			</div>
 		</div>
 	);
 }

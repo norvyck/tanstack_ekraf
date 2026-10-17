@@ -1,0 +1,110 @@
+{
+  "planHash": "25a4e04217ec14ecb92547b7c3da3d70fd23659e5738f5d41dd891ca99316d9a",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-10-17T08:01:59.5349075Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 285,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ vite build\r\n\u001B[36mvite v8.3.4 \u001B[32mbuilding client environment for production...\u001B[36m\u001B[39m\r\ntransforming...\r\n\r\n[@tanstack/devtools-vite] Removed devtools code from: /src/routes/__root.tsx\r\n\r\n\u2713 2318 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\n.output/public/assets/styles-0yLgWkiH.css          74.69 kB \u2502 gzip:  13.06 kB\r\n.output/public/assets/check-C8wvqiuT.js             0.11 kB \u2502 gzip:   0.12 kB\r\n.output/public/assets/loader-circle-BOnTncu7.js     0.13 kB \u2502 gzip:   0.14 kB\r\n.output/public/assets/x-Cn1DVEzG.js                 0.14 kB \u2502 gzip:   0.14 kB\r\n.output/public/assets/useNavigate-jECTJAwW.js       0.18 kB \u2502 gzip:   0.16 kB\r\n.output/public/assets/arrow-up-right-T29uHr1J.js    0.26 kB \u2502 gzip:   0.19 kB\r\n.output/public/assets/users-uDickhw3.js             0.29 kB \u2502 gzip:   0.21 kB\r\n.output/public/assets/shield-check-CbKES7Q-.js      0.30 kB \u2502 gzip:   0.24 kB\r\n.output/public/assets/useServerFn-75eBci-x.js       0.32 kB \u2502 gzip:   0.24 kB\r\n.output/public/assets/package-bdmkTMdt.js           0.36 kB \u2502 gzip:   0.24 kB\r\n.output/public/assets/users-DV6a0QgC.js             0.44 kB \u2502 gzip:   0.31 kB\r\n.output/public/assets/input-51BVEOLD.js             0.80 kB \u2502 gzip:   0.44 kB\r\n.output/public/assets/label-DFuuM0Y0.js             1.28 kB \u2502 gzip:   0.72 kB\r\n.output/public/assets/setup-CCV9X7vF.js             2.60 kB \u2502 gzip:   1.16 kB\r\n.output/public/assets/dashboard-BsfqI4v5.js         5.85 kB \u2502 gzip:   2.08 kB\r\n.output/public/assets/routes-F7dGwXHz.js            6.36 kB \u2502 gzip:   2.22 kB\r\n.output/public/assets/_admin-Bh3t30Ya.js            7.15 kB \u2502 gzip:   2.41 kB\r\n.output/public/assets/preload-helper-DGWM1sKi.js    7.26 kB \u2502 gzip:   2.80 kB\r\n.output/public/assets/useQuery-CDb_fqv5.js          7.95 kB \u2502 gzip:   2.93 kB\r\n.output/public/assets/login-DNqY67h6.js             8.03 kB \u2502 gzip:   2.84 kB\r\n.output/public/assets/badge-C7med-Eg.js            62.61 kB \u2502 gzip:  20.19 kB\r\n.output/public/assets/users-B6g4atJF.js            67.18 kB \u2502 gzip:  22.71 kB\r\n.output/public/assets/products-achzCMbK.js         79.81 kB \u2502 gzip:  20.66 kB\r\n.output/public/assets/dist-Dq6MrEYH.js             99.42 kB \u2502 gzip:  37.06 kB\r\n.output/public/assets/index-BhWuTinY.js           427.37 kB \u2502 gzip: 133.72 kB\r\n\r\n\u001B[32m\u2713 built in 3.56s\u001B[39m\r\n\u001B[36mvite v8.3.4 \u001B[32mbuilding ssr environment for production...\u001B[36m\u001B[39m\r\ntransforming...\r\n\r\n[@tanstack/devtools-vite] Removed devtools code from: /src/routes/__root.tsx\r\n\r\n\u2713 190 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\nnode_modules/.nitro/vite/services/ssr/assets/styles-0yLgWkiH.css                      74.69 kB \u2502 gzip: 13.06 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/kysely-adapter-Cj_QZw5p.js                0.05 kB \u2502 gzip:  0.07 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/start-5Z2QO8AU.js                         0.14 kB \u2502 gzip:  0.13 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/empty-plugin-adapters-D9UWiqvJ.js         0.22 kB \u2502 gzip:  0.16 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/createSsrRpc-D75-wYbG.js                  0.52 kB \u2502 gzip:  0.33 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/label-Yo8OuWWm.js                         0.54 kB \u2502 gzip:  0.34 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/useServerFn-CrZF2pjq.js                   0.63 kB \u2502 gzip:  0.35 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/users-CbLIDw-v.js                         0.84 kB \u2502 gzip:  0.46 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/input-Du6e-4Mp.js                         0.93 kB \u2502 gzip:  0.51 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/session-Bpox9t2Q.js                       1.57 kB \u2502 gzip:  0.74 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/auth-D25RyHGt.js                          2.55 kB \u2502 gzip:  1.12 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BSTeYQGN.js    2.92 kB \u2502 gzip:  0.76 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/users-CiY_uDbd.js                         2.95 kB \u2502 gzip:  1.01 kB\r\nnode_modules/.nitro/vite/services/ssr/assets/setup-DIMcDYr9.js                         3.54 kB \u2502 gzip:  1.29\n\u2026[truncated]",
+        "durationMs": 14585
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "$ vitest run --config vitest.config.ts\r\n\r\n RUN  v5.0.5 D:/College/tanstack_ekraf\r\n\r\n\r\n Test Files  1 passed (1)\r\n      Tests  1 passed (1)\r\n   Start at  15:01:41\r\n   Duration  984ms (import 59%, transform 30%, tests 7%, worker 4%)\r\n\r\n",
+        "durationMs": 3477,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 1,
+          "testsPassed": 1,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      },
+      {
+        "name": "dashboard-to-products",
+        "kind": "playwright-route",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\nRunning 1 test using 1 worker\r\n\r\n[1/1] playwright-scripts\\dashboard-to-products.spec.ts:5:1 \u203A dashboard-to-products\r\n  1 passed (11.4s)\r\n",
+        "durationMs": 16282
+      }
+    ],
+    "executions": [
+      {
+        "source": "setup[0]",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "install",
+          "--frozen-lockfile"
+        ],
+        "cwd": "D:\\College\\tanstack_ekraf",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "devServer",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "dev"
+        ],
+        "cwd": "D:\\College\\tanstack_ekraf",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "D:\\College\\tanstack_ekraf",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "C:\\Users\\HP\\.bun\\bin\\bun.EXE",
+        "args": [
+          "run",
+          "test"
+        ],
+        "cwd": "D:\\College\\tanstack_ekraf",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+	"generatedOnPlatform": "win32",
+	"projectType": "webapp",
+	"devServer": {
+		"command": "bun",
+		"args": ["run", "dev"],
+		"url": "http://localhost:3000/",
+		"readyTimeoutSeconds": 120
+	},
+	"setup": [
+		{
+			"command": "bun",
+			"args": ["install", "--frozen-lockfile"],
+			"timeoutSeconds": 600
+		}
+	],
+	"assertions": [
+		{
+			"name": "production-build",
+			"kind": "process",
+			"command": "bun",
+			"args": ["run", "build"],
+			"verificationMethod": "exit-code",
+			"expected": "0",
+			"timeoutSeconds": 300
+		},
+		{
+			"name": "tests-pass",
+			"kind": "process",
+			"command": "bun",
+			"args": ["run", "test"],
+			"verificationMethod": "test-results",
+			"expected": "0",
+			"timeoutSeconds": 300
+		},
+		{
+			"name": "dashboard-to-products",
+			"kind": "playwright-route",
+			"scriptPath": ".tsupgrader/runtime-validation/playwright-scripts/dashboard-to-products.spec.ts",
+			"verificationMethod": "exit-code",
+			"expected": "0",
+			"timeoutSeconds": 180
+		}
+	]
+}
