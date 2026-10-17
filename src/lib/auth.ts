@@ -4,6 +4,7 @@ import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { adapter } from "./db";
 
 export const auth = betterAuth({
+	trustedOrigins: ["http://localhost:3000", "http://127.0.0.1:3000"],
 	database: adapter,
 	emailAndPassword: {
 		enabled: true,
