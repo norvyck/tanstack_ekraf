@@ -116,15 +116,29 @@ function Users() {
 	};
 
 	return (
-		<div className="mx-auto w-full max-w-5xl space-y-6">
-			<div>
-				<h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Users</h1>
-				<p className="mt-1 text-sm text-muted-foreground">
-					Manage accounts and administrator access.
+		<div className="mx-auto w-full max-w-6xl space-y-6">
+			<div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-5 py-5 shadow-[0_12px_32px_rgba(23,58,64,0.05)] sm:px-7">
+				<p className="island-kicker">Your community</p>
+				<h1 className="display-title mt-1 text-4xl leading-tight font-medium tracking-tight text-[var(--sea-ink)] sm:text-5xl">
+					People
+				</h1>
+				<p className="mt-2 text-sm text-muted-foreground">
+					Manage the people and permissions behind your store.
 				</p>
 			</div>
 
-			<Card className="overflow-hidden p-0">
+			<Card className="overflow-hidden rounded-2xl border-[var(--line)] bg-[var(--surface)] p-0 shadow-[0_18px_48px_rgba(23,58,64,0.07)]">
+				<div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4 sm:px-6">
+					<div>
+						<p className="text-sm font-extrabold text-[var(--sea-ink)]">Team members</p>
+						<p className="mt-0.5 text-xs text-muted-foreground">
+							{users.length} {users.length === 1 ? "person" : "people"} with workspace access
+						</p>
+					</div>
+					<span className="grid size-9 place-items-center rounded-xl bg-[color-mix(in_oklab,var(--lagoon)_14%,var(--surface-strong))] text-[var(--palm)]">
+						<ShieldCheck className="size-4" />
+					</span>
+				</div>
 				{usersQuery.isPending ? (
 					<div className="space-y-3 p-4">
 						{SKELETON_ROWS.map((rowKey) => (
@@ -155,7 +169,7 @@ function Users() {
 												<th
 													key={header.id}
 													colSpan={header.colSpan}
-													className="bg-muted/40 px-4 py-3 text-left text-xs font-semibold text-muted-foreground"
+													className="bg-[color-mix(in_oklab,var(--lagoon)_7%,var(--surface-strong))] px-4 py-3.5 text-left text-[10px] font-bold tracking-[0.12em] text-muted-foreground uppercase"
 												>
 													{header.isPlaceholder
 														? null
@@ -169,10 +183,10 @@ function Users() {
 									{table.getRowModel().rows.map((row) => (
 										<tr
 											key={row.id}
-											className="border-b border-border last:border-0 hover:bg-muted/30"
+											className="border-b border-[var(--line)] transition-colors last:border-0 hover:bg-[color-mix(in_oklab,var(--lagoon)_6%,transparent)]"
 										>
 											{row.getAllCells().map((cell) => (
-												<td key={cell.id} className="px-4 py-3 align-middle">
+												<td key={cell.id} className="px-4 py-4 align-middle">
 													{flexRender(cell.column.columnDef.cell, cell.getContext())}
 												</td>
 											))}
@@ -182,15 +196,20 @@ function Users() {
 							</table>
 						</div>
 
-						<ul className="divide-y divide-border md:hidden">
+						<ul className="space-y-3 p-3 md:hidden">
 							{users.map((user) => {
 								const isLastAdmin = user.role === "admin" && adminCount <= 1;
 								const isSelf = user.id === currentUser.id;
 								return (
-									<li key={user.id} className="space-y-3 p-4">
+									<li
+										key={user.id}
+										className="space-y-3 rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] p-4 shadow-sm"
+									>
 										<div className="flex items-start justify-between gap-3">
 											<div className="min-w-0">
-												<p className="truncate text-sm font-medium">{user.name ?? "\u2014"}</p>
+												<p className="truncate text-sm font-bold text-[var(--sea-ink)]">
+													{user.name ?? "\u2014"}
+												</p>
 												<p className="truncate text-xs text-muted-foreground">{user.email}</p>
 											</div>
 											<Badge variant={user.role === "admin" ? "default" : "muted"}>

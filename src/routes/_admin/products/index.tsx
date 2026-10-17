@@ -118,14 +118,20 @@ function Products() {
 	};
 
 	return (
-		<div className="mx-auto w-full max-w-5xl space-y-6">
-			<div className="flex flex-wrap items-end justify-between gap-4">
+		<div className="mx-auto w-full max-w-6xl space-y-6">
+			<div className="flex flex-wrap items-end justify-between gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] px-5 py-5 shadow-[0_12px_32px_rgba(23,58,64,0.05)] sm:px-7">
 				<div>
-					<h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Products</h1>
-					<p className="mt-1 text-sm text-muted-foreground">Manage the items in your catalog.</p>
+					<p className="island-kicker">Your catalog</p>
+					<h1 className="display-title mt-1 text-4xl leading-tight font-medium tracking-tight text-[var(--sea-ink)] sm:text-5xl">
+						Products
+					</h1>
+					<p className="mt-2 text-sm text-muted-foreground">
+						A little care goes a long way. Keep your catalog fresh.
+					</p>
 				</div>
 				{isAdmin && (
 					<Button
+						className="h-11 rounded-xl bg-[var(--palm)] px-5 font-bold text-white shadow-[0_10px_24px_rgba(47,106,74,0.2)] hover:bg-[var(--lagoon-deep)]"
 						onClick={() => {
 							setEditing(null);
 							setFormOpen(true);
@@ -137,7 +143,18 @@ function Products() {
 				)}
 			</div>
 
-			<Card className="overflow-hidden p-0">
+			<Card className="overflow-hidden rounded-2xl border-[var(--line)] bg-[var(--surface)] p-0 shadow-[0_18px_48px_rgba(23,58,64,0.07)]">
+				<div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4 sm:px-6">
+					<div>
+						<p className="text-sm font-extrabold text-[var(--sea-ink)]">Catalog overview</p>
+						<p className="mt-0.5 text-xs text-muted-foreground">
+							{products.length} {products.length === 1 ? "item" : "items"} in your collection
+						</p>
+					</div>
+					<span className="rounded-full border border-[var(--chip-line)] bg-[var(--surface-strong)] px-3 py-1 text-[10px] font-bold tracking-[0.12em] text-[var(--sea-ink-soft)] uppercase">
+						Live catalog
+					</span>
+				</div>
 				{productsQuery.isPending ? (
 					<LoadingState />
 				) : productsQuery.isError ? (
@@ -158,7 +175,7 @@ function Products() {
 												<th
 													key={header.id}
 													colSpan={header.colSpan}
-													className="bg-muted/40 px-4 py-3 text-left text-xs font-semibold text-muted-foreground"
+													className="bg-[color-mix(in_oklab,var(--lagoon)_7%,var(--surface-strong))] px-4 py-3.5 text-left text-[10px] font-bold tracking-[0.12em] text-muted-foreground uppercase"
 												>
 													{header.isPlaceholder ? null : (
 														<button
@@ -186,10 +203,10 @@ function Products() {
 									{table.getRowModel().rows.map((row) => (
 										<tr
 											key={row.id}
-											className="border-b border-border last:border-0 hover:bg-muted/30"
+											className="border-b border-[var(--line)] transition-colors last:border-0 hover:bg-[color-mix(in_oklab,var(--lagoon)_6%,transparent)]"
 										>
 											{row.getAllCells().map((cell) => (
-												<td key={cell.id} className="px-4 py-3 align-middle">
+												<td key={cell.id} className="px-4 py-4 align-middle">
 													{flexRender(cell.column.columnDef.cell, cell.getContext())}
 												</td>
 											))}
@@ -199,10 +216,13 @@ function Products() {
 							</table>
 						</div>
 
-						<ul className="divide-y divide-border md:hidden">
+						<ul className="space-y-3 p-3 md:hidden">
 							{products.map((product) => (
-								<li key={product.id} className="flex items-center gap-3 p-4">
-									<div className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-md border border-border bg-muted/40">
+								<li
+									key={product.id}
+									className="flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] p-3 shadow-sm"
+								>
+									<div className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-[var(--line)] bg-[color-mix(in_oklab,var(--lagoon)_8%,var(--surface))]">
 										{product.image ? (
 											<img src={product.image} alt="" className="size-full object-cover" />
 										) : (
@@ -210,9 +230,14 @@ function Products() {
 										)}
 									</div>
 									<div className="min-w-0 flex-1">
-										<p className="truncate text-sm font-medium">{product.name}</p>
-										<p className="truncate text-xs text-muted-foreground">
-											${Number(product.price).toFixed(2)} · Stock {product.stock}
+										<p className="truncate text-sm font-bold text-[var(--sea-ink)]">
+											{product.name}
+										</p>
+										<p className="mt-1 truncate text-xs text-muted-foreground">
+											<span className="font-bold text-[var(--palm)]">
+												${Number(product.price).toFixed(2)}
+											</span>{" "}
+											· Stock {product.stock}
 										</p>
 									</div>
 									<RowActions
