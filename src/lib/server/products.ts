@@ -16,13 +16,23 @@ const imageSchema = z
 	})
 	.transform((value) => (value == null || value.trim() === "" ? null : value.trim()));
 
+// Strip any HTML tags from user-supplied text fields to prevent stored XSS
+// even if a value is ever rendered with dangerouslySetInnerHTML.
+const sanitizeText = (value: string) => value.replace(/<[^>]*>/g, "").trim();
+
 export const productSchema = z.object({
-	name: z.string().trim().min(1, "Name is required").max(120, "Name is too long"),
+	name: z
+		.string()
+		.trim()
+		.min(1, "Name is required")
+		.max(120, "Name is too long")
+		.transform(sanitizeText),
 	description: z
 		.string()
 		.trim()
 		.min(1, "Description is required")
-		.max(2000, "Description is too long"),
+		.max(2000, "Description is too long")
+		.transform(sanitizeText),
 	price: z.coerce.number().min(0, "Price must be positive").max(1_000_000, "Price is too high"),
 	stock: z.coerce.number().int("Stock must be a whole number").min(0, "Stock must be positive"),
 	image: imageSchema,

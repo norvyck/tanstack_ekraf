@@ -24,7 +24,30 @@ export const getUsers = createServerFn({ method: "GET" }).handler(async () => {
 export const updateUserRole = createServerFn({ method: "POST" })
 	.validator(userRoleSchema)
 	.handler(async ({ data }) => {
-		await requireAdmin();
+		const { user } = await requireAdmin();
+
+		// Prevent an administrator from demoting themselves, which would
+		// lock them out of the admin area.
+		if (data.userId === user.id && data.role !== "admin") {
+			const err = new Error("You cannot demote your own account.") as Error & {
+				status?: number;
+			};
+			err.status = 400;
+			throw err;
+		}
+
+		// Prevent removing the last administrator.
+		if (data.role !== "admin" && getUserRole(data.userId) === "admin") {
+			const adminCount = db.userRole.filter((r) => r.role === "admin").length;
+			if (adminCount <= 1) {
+				const err = new Error("Cannot demote the last administrator.") as Error & {
+					status?: number;
+				};
+				err.status = 400;
+				throw err;
+			}
+		}
+
 		setUserRole(data.userId, data.role);
 		return { ok: true };
 	});
@@ -32,7 +55,17 @@ export const updateUserRole = createServerFn({ method: "POST" })
 export const deleteUser = createServerFn({ method: "POST" })
 	.validator(z.object({ userId: z.string() }))
 	.handler(async ({ data }) => {
-		await requireAdmin();
+		const { user } = await requireAdmin();
+
+		// Prevent an administrator from deleting their own account.
+		if (data.userId === user.id) {
+			const err = new Error("You cannot delete your own account.") as Error & {
+				status?: number;
+			};
+			err.status = 400;
+			throw err;
+		}
+
 		// Prevent removing the last administrator so the app never locks itself out.
 		const role = getUserRole(data.userId);
 		if (role === "admin") {

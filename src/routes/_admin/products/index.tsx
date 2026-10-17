@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import {
 	createColumnHelper,
+	createSortedRowModel,
 	flexRender,
 	rowSortingFeature,
 	tableFeatures,
@@ -41,7 +42,10 @@ function Products() {
 
 	const products = productsQuery.data ?? [];
 
-	const features = tableFeatures({ rowSortingFeature });
+	const features = tableFeatures({
+		rowSortingFeature,
+		sortedRowModel: createSortedRowModel(),
+	});
 	const columnHelper = createColumnHelper<typeof features, Product>();
 
 	const columns = columnHelper.columns([
